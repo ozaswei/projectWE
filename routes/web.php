@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\TestController;
+use App\Models\Post;
+
+
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +19,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('startPage');
-});
+//test controller
+Route::get('/testPage',[TestController::class,'infiniteScroll'])->name('infiniteScroll');
+
+//page controller
+Route::get('/', [PageController::class,'firstPage'])->name('firstPage');
+Route::get('/secondPage',[PageController::class,'secondPage'])->name('secondPage');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
